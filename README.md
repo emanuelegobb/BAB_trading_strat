@@ -1,6 +1,6 @@
 # BAB Strategy Market-Neutral Backtest
 
-A streamlined implementation of the classic **Betting-Against-Beta (BAB)** market-neutral equity strategy. This version uses a standard, non-timed BAB approach—proprietary timing logic has been removed for confidentiality.
+A streamlined implementation of the classic **Betting-Against-Beta (BAB)** market-neutral equity strategy applied on the historical constituents of the SP500 equity index. This version uses a standard, non-timed BAB approach—proprietary timing logic has been removed for confidentiality.
 
 ---
 
