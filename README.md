@@ -1,84 +1,88 @@
-# BAB_trading_strat
-
 # BAB Strategy with Market-Neutral Overlay
 
-This repository contains the implementation of a **market-neutral equity strategy** based on the classic **Betting-Against-Beta (BAB)** framework by Frazzini & Pedersen (2014), extended with a **proprietary timing overlay** that adjusts exposure dynamically based on internally estimated market signals.
-
-The code backtests monthly-rebalanced long/short portfolios on S&P500 constituents from 2010 to 2024, with detailed metrics and visualizations of performance.
+A concise implementation of the **Betting-Against-Beta (BAB)** market-neutral equity strategy, extended with a **proprietary timing overlay**. Monthly rebalanced long/short portfolios on S\&P500 constituents (2010–2024). Signal logic is internal and not disclosed here.
 
 ---
 
-## 🧠 Strategy Logic
+## Strategy Logic
 
-- Long low-beta stocks, short high-beta stocks.
-- Position sizing scaled to neutralize portfolio beta.
-- Rebalanced monthly using rolling 12-month windows.
-- **Proprietary timing overlay** modulates exposure intensity based on internal signal.  
-  *(Signal construction details are not disclosed in this public version.)*
+1. **Beta-Based Selection**: Long bottom 50% by estimated beta; short top 50%.
+2. **Beta Neutralization**: Scale weights so portfolio beta ≈ 0.
+3. **Monthly Rebalance**: Rolling 12-month beta estimates, transaction costs (2 bps long, 3 bps short).
+4. **Timing Overlay**: Proprietary internal signal adjusts gross exposure (placeholder in code).
 
 ---
 
-## 📂 Repository Structure
+## Repository Structure
 
+```
 BAB-Timing-Strategy/
-├── BAB_backtest.m # Main MATLAB script
+├── BAB_backtest.m                # MATLAB script for backtest
 ├── Investment_Proposal_Sanitized.md
-├── data/ # Input data 
-├── figs/ # Output plots
-├── README.md
+├── data/                         # Input CSVs (returns, factor data)
+├── figs/                         # Generated plots
+├── requirements.txt              # (Optional) Python dependencies
+└── README.md
+```
 
 ---
 
+## Performance & Risk Metrics (2010–2024)
+
+| Metric                               | Base BAB   | With Overlay |
+| ------------------------------------ | ---------- | ------------ |
+| Annual Return                        | 3.7%       | 4.5%         |
+| Annual Volatility                    | 10.4%      | 7.4%         |
+| Sharpe Ratio                         | 0.35       | 0.62         |
+| Max Drawdown                         | –19.5%     | –15.4%       |
+| Beta vs Market                       | 0.09       | 0.00         |
+| Jensen's Alpha (Fama-French + Mom)   | 0.36%      | 4.8%         |
+| Historical VaR (5%, Monthly)**     | –4.58%** | –3.21%**   |
+| Historical VaR (1%, Monthly)**     | –7.46%** | –5.22%**   |
+| Expected Shortfall (5%, Monthly)** | –6.60%** | –4.22%**   |
+| Expected Shortfall (1%, Monthly)** | –9.94%** | –5.42%**   |
 
 ---
 
-## 📈 Performance (Backtested: 2010–2024)
+## Quickstart
 
-|                       | Base BAB | With Overlay |
-|-----------------------|----------|--------------|
-| Annual Return         | ~3.7%    | ~4.5%        |
-| Annual Volatility     | ~10.4%   | ~7.4%        |
-| Sharpe Ratio          | ~0.35    | ~0.62        |
-| Max Drawdown          | ~–19.5%  | ~–15.4%      |
-| Beta vs Market        | ~0.09    | ~0.00        |
-| Jensen's Alpha (5F)   | ~0.36%   | ~4.8%        |
+1. **Clone & Setup**
 
----
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/BAB-Timing-Strategy.git
+   cd BAB-Timing-Strategy
+   # For MATLAB: open BAB_backtest.m
+   # For Python (optional):
+   pip install -r requirements.txt
+   ```
 
-## 🛠️ How to Run
+2. **Prepare Data**
 
-1. Place your cleaned factor & returns data into `/data/`.
-2. Open `BAB_backtest.m` in MATLAB.
-3. Run the script to generate:
-   - Monthly alpha/beta estimates
-   - Long/short weights
-   - Portfolio returns and drawdown
-   - Equity curve plots
-   - (Placeholder) Signal-modulated exposure
+   * Place your CSVs (e.g., `SP500_returns.csv`, `FF_factors.csv`) in `data/`.
+   * Ensure the script’s `DATA_DIR` points to `./data/`.
 
-> If you want to reproduce this in Python, porting is straightforward. Let me know and I can help set up the notebook.
+3. **Run Backtest**
 
----
+   * In MATLAB: `run('BAB_backtest.m')`.
+   * Placeholder function `generate_proprietary_signal()` outputs dummy signals for overlay integration.
 
-## ❗ Disclosure
+4. **Inspect Outputs**
 
-- This repo **does not include** the logic behind the proprietary signal used for exposure scaling (overlay).
-- Performance shown in `/figs/` reflects out-of-sample overlays tested in rolling fashion.
+   * Equity curves and risk metrics in `figs/`.
+   * Detailed results in the console and exported tables.
 
 ---
 
-## 📄 Investment Proposal
+## Disclosure
 
-See [`Investment_Proposal_Sanitized.md`](./Investment_Proposal_Sanitized.md) for the theoretical foundation, design rationale, and results — redacted to protect the proprietary component.
-
----
-
-## 📬 Contact
-
-**Emanuele Gobbato**  
-[LinkedIn](https://www.linkedin.com/in/emanuele-gobbato/)  
-📫 Email available upon request
+* **No proprietary signal details**: Exposure timing logic is stubbed in the public version.
+* **Out-of-sample test**: Overlay metrics reflect rolling validation.
 
 ---
 
-> _This repository is intended as a sample of academic-level quant research and portfolio implementation. It may serve as a conversation starter with asset managers, quant firms, or hedge funds._
+## Contact
+
+Emanuele Gobbato
+[LinkedIn](https://www.linkedin.com/in/emanuele-gobbato/)
+Email: emanuelegobbato@outlook.com
+
