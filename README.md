@@ -81,6 +81,7 @@ BAB-Timing-Strategy/
 │   └── ...
 ├── BAB_no_signal_wealth.jpg      #plot of wealth with base strategy
 ├── BAB_signal_wealth.jpg      #plot of wealth with trading signal last 4 years
+├── Investment Proposal Clean.pdf      #proposal and theory behind the strategy
 ├── README.md               # This file
 └── .gitignore
 ```
